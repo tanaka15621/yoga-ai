@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Yoga AI｜リアルタイム姿勢チェック</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/vision_bundle.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <header>
+    <div class="brand-mark">Y</div>
+    <div><p class="eyebrow">REAL-TIME POSE COACH</p><h1>Yoga AI</h1></div>
+    <span class="live-pill"><i></i> LIVE COACH</span>
+  </header>
+
+  <main>
+    <section class="intro">
+      <div>
+        <p class="eyebrow">YOUR PERSONAL YOGA ASSISTANT</p>
+        <h2>姿勢を見て、<span>その場でアドバイス。</span></h2>
+        <p class="sub">カメラ映像から体の目印を追跡し、木のポーズをリアルタイムでチェックします。</p>
+      </div>
+      <div class="pose-badge"><span>01</span><strong>木のポーズ</strong><small>TREE POSE</small></div>
+    </section>
+
+    <section class="layout">
+      <div class="camera-card">
+        <div class="card-top"><div><span class="status-dot" id="statusDot"></span><strong id="cameraStatus">カメラ未起動</strong></div><span class="camera-label">CAMERA FEED</span></div>
+        <div class="video-wrap">
+          <video id="webcam" autoplay playsinline muted></video>
+          <canvas id="overlay"></canvas>
+          <div class="camera-placeholder" id="placeholder">
+            <div class="camera-icon">⌁</div>
+            <strong>カメラを起動しよう</strong>
+            <span>全身が映るように、少し離れて立ってね。</span>
+          </div>
+          <div class="tracking-tag" id="trackingTag">● 骨格トラッキング待機中</div>
+        </div>
+        <div class="camera-actions">
+          <button class="primary-btn" id="startBtn">カメラを起動</button>
+          <button class="secondary-btn" id="stopBtn" disabled>停止</button>
+        </div>
+        <p class="privacy-note">🔒 映像はこのページ内で処理します。カメラ利用にはブラウザの許可が必要です。</p>
+      </div>
+
+      <aside class="results">
+        <div class="score-card">
+          <div class="card-top"><strong>姿勢スコア</strong><span class="tiny-label">LIVE SCORE</span></div>
+          <div class="score-line"><span id="score">--</span><span class="out-of">/ 100</span></div>
+          <div class="meter"><div id="scoreBar"></div></div>
+          <div class="verdict" id="verdict">カメラを起動してください</div>
+          <p class="score-caption" id="scoreCaption">全身が映ると、判定が始まります。</p>
+        </div>
+        <div class="advice-card">
+          <div class="card-top"><strong>コーチからのアドバイス</strong><span class="spark">✦</span></div>
+          <div class="advice-icon" id="adviceIcon">◎</div>
+          <h3 id="adviceTitle">準備できたらスタート</h3>
+          <p id="adviceText">カメラを起動し、頭から足先まで画面に入る位置に立ちましょう。</p>
+        </div>
+        <div class="check-card">
+          <div class="card-top"><strong>チェック項目</strong><span class="tiny-label">BODY ALIGNMENT</span></div>
+          <div class="check-row"><span>上半身の安定</span><b id="torsoCheck">待機中</b></div>
+          <div class="check-row"><span>片足立ちの形</span><b id="balanceCheck">待機中</b></div>
+          <div class="check-row"><span>全身の認識</span><b id="bodyCheck">未検出</b></div>
+        </div>
+      </aside>
+    </section>
+    <footer><span>YOGA AI · DEMO</span><span>判定は目安です。痛みや不安定さがあれば無理をせず中止してください。</span></footer>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>

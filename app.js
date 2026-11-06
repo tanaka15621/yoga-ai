@@ -126,12 +126,22 @@ async function startCamera() {
     $('trackingTag').textContent='● リアルタイム骨格トラッキング中';
     showAdvice('ポーズを始めよう','全身が映ったら、ゆっくり木のポーズを作ってみましょう。','✦');
     loop();
-  } catch (err) {
-    console.error(err);
-    stopCamera();
-    const msg = err?.name==='NotAllowedError'?'ブラウザのカメラ使用を許可してください。':err?.name==='NotFoundError'?'ウェブカメラが見つかりません。':'カメラや姿勢モデルを起動できませんでした。ページを再読み込みして、もう一度試してください。';
-    showAdvice('起動できませんでした',msg,'!');
-    setStatus('起動エラー'); startBtn.disabled=false;startBtn.textContent='もう一度試す';
+} catch (err) {
+  console.error(err);
+  stopCamera();
+
+  const errorDetails = `${err?.name || 'Error'}: ${err?.message || '不明なエラー'}`;
+
+  showAdvice(
+    '起動できませんでした',
+    errorDetails,
+    '!'
+  );
+
+  setStatus('起動エラー');
+  startBtn.disabled = false;
+  startBtn.textContent = 'もう一度試す';
+}
   }
 }
 function loop() {

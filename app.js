@@ -1,3 +1,5 @@
+const { PoseLandmarker, FilesetResolver } = window;
+
 const video = document.getElementById('webcam');
 const canvas = document.getElementById('overlay');
 const ctx = canvas.getContext('2d');
